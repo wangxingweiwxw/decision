@@ -1,0 +1,48 @@
+{
+  "created_at": "2026-10-11T10:20:19.471365+00:00",
+  "status": "complete",
+  "mock": true,
+  "dataset_path": "C:\\Users\\wangx\\Documents\\Codex\\2026-10-11\\ze\\outputs\\decision-benchmark\\data\\science_demo.jsonl",
+  "dataset_sha256": "f3cce6261ac63ce3d4bc22b18fd7af009a45142d6f039ff88d708da791cd9d88",
+  "selected_samples_sha256": "6b446b962902f8c6f06475a9b485abd9fde7441beee1c33993cc0c9fb6eed2b0",
+  "samples": 12,
+  "rounds": 3,
+  "warmup_per_worker_per_provider": 2,
+  "concurrency": 1,
+  "timeout_seconds": 60,
+  "delay_between_calls_seconds": 0.0,
+  "seed": 42,
+  "noul_threshold": 0.5,
+  "bootstrap_draws": 2000,
+  "providers": [
+    {
+      "name": "bailian",
+      "endpoint": "https://{workspace}.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/systemone",
+      "model": "decision-model-preview",
+      "extra": {}
+    },
+    {
+      "name": "microsoft",
+      "endpoint": "https://openrouter.ai/api/alpha/decisions",
+      "model": "microsoft/microsoft-decision-1",
+      "extra": {}
+    }
+  ],
+  "python": "3.12.7",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "requests_version": "2.32.5",
+  "timing": "perf_counter around HTTP request through full body receipt; excludes JSON parsing; no retries",
+  "scheduling": "sample pairs randomized per round; provider order randomized per pair; per-worker persistent sessions",
+  "accuracy": "round 0 only; failures incorrect; paired CI clustered by sample id",
+  "limitations": [
+    "OpenRouter gateway and network are included; not isolated model computation",
+    "Server latency fields are recorded but not compared",
+    "Repeated prompts may be cached by providers; no client cache",
+    "Per-call requests timeout is connect/read inactivity, not a strict wall-clock deadline",
+    "Score rubrics use 0-based ordinal values, not physical quantities"
+  ],
+  "fatal_error": null,
+  "finished_at": "2026-10-11T10:20:19.882711+00:00",
+  "wall_seconds_including_warmup": 0.2452589999884367,
+  "recorded_requests_including_warmup": 76
+}

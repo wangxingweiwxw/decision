@@ -1,0 +1,57 @@
+# ---- Secrets: never commit ----
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# ---- Benchmark outputs (regenerate locally; may contain run-specific data) ----
+decision-benchmark/data/pubmedqa/
+decision-benchmark/.env
+
+# ---- Licensed system fonts: do NOT redistribute ----
+# Microsoft YaHei is a proprietary Windows font. The video build copies it
+# locally at render time; see video/README.md for the setup step.
+video/intro/fonts/
+*.ttc
+*.ttf
+*.otf
+
+# ---- Large / regenerable media ----
+video/intro/audio/*.wav
+video/intro/qa/
+video/**/renders/
+!video/intro/renders/.gitkeep
+
+# ---- Agent / editor / OS noise ----
+.box-agent/
+.box-agent-scratch/
+work/pdf-report/mpl-cache/
+work/pdf-report/fourway/
+# Intermediate render/preview images from report builds (regenerable)
+work/pdf-report/*.png
+work/pdf-report/threeway/
+work/pdf-report/extracted.txt
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Local scratch screenshots / duplicate uploads ----
+屏幕截图*.png
+decision_models_fourway_2026-10-12*.pdf
+*.zip
+
+# Host-internal artifact metadata
+reports/.*.artifact.json
+# Loose screenshot copy at repo root (the video uses video/intro/assets/)
+看山工作台.png

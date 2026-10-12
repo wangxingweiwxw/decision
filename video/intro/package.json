@@ -1,0 +1,13 @@
+{
+  "name": "raccoon-hyperframes-basic-composition",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "check": "hyperframes lint --json && hyperframes validate --json && hyperframes inspect --json",
+    "render": "hyperframes render --strict"
+  },
+  "dependencies": {
+    "hyperframes": "0.7.20",
+    "gsap": "^3.14.2"
+  }
+}

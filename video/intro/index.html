@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Decision Benchmark 项目介绍</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      @font-face{font-family:"HFSans";src:url("./fonts/msyh.ttc") format("truetype");
+        font-weight:400;font-style:normal;font-display:block;}
+      @font-face{font-family:"HFSans";src:url("./fonts/msyhbd.ttc") format("truetype");
+        font-weight:700;font-style:normal;font-display:block;}
+      html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0B1220;color:#F1F5F9;
+        font-family:"HFSans",sans-serif;}
+      #root{position:relative;width:1920px;height:1080px;overflow:hidden;background:
+        radial-gradient(1200px 700px at 78% 12%,#16304A 0%,rgba(11,18,32,0) 62%),
+        radial-gradient(900px 600px at 12% 88%,#13303A 0%,rgba(11,18,32,0) 60%),#0B1220;}
+      .clip{position:absolute;inset:0;opacity:0;}
+      .pad{position:absolute;left:132px;top:0;height:1080px;width:1656px;
+        display:flex;flex-direction:column;justify-content:center;}
+      .kicker{font-size:30px;letter-spacing:.32em;color:#5EC8C8;margin:0 0 28px;font-weight:700;}
+      .h1{font-size:118px;font-weight:800;line-height:1.08;margin:0;letter-spacing:-.01em;}
+      .h2{font-size:74px;font-weight:800;line-height:1.16;margin:0 0 18px;}
+      .sub{font-size:40px;color:#A8BACD;margin:34px 0 0;line-height:1.5;font-weight:400;}
+      .rule{width:148px;height:8px;border-radius:6px;background:linear-gradient(90deg,#22A6A6,#3E7FD8);margin:40px 0 0;}
+      .tag{font-size:27px;color:#7E93A8;letter-spacing:.06em;}
+      .grid4{display:flex;gap:30px;margin-top:62px;}
+      .card{flex:1;background:rgba(255,255,255,.045);border:1px solid rgba(148,180,210,.20);
+        border-radius:22px;padding:38px 30px;}
+      .card .nm{font-size:31px;font-weight:700;margin:0 0 24px;line-height:1.32;min-height:88px;}
+      .card .nm small{display:block;font-size:23px;font-weight:400;color:#8EA3B8;margin-top:8px;}
+      .card .big{font-size:76px;font-weight:800;margin:0;line-height:1;letter-spacing:-.02em;}
+      .card .unit{font-size:27px;color:#8EA3B8;margin:14px 0 0;}
+      .bar{height:13px;border-radius:8px;background:rgba(255,255,255,.08);margin-top:30px;overflow:hidden;}
+      .bar > i{display:block;height:100%;width:0;border-radius:8px;}
+      .rows{margin-top:56px;}
+      .row{display:flex;align-items:center;gap:30px;margin-bottom:30px;opacity:0;}
+      .row .lbl{width:430px;font-size:36px;font-weight:600;text-align:right;}
+      .row .track{flex:1;height:50px;background:rgba(255,255,255,.07);border-radius:12px;overflow:hidden;}
+      .row .track > i{display:block;height:100%;width:0;border-radius:12px;}
+      .row .val{width:280px;font-size:33px;font-weight:700;color:#D7E4F2;white-space:nowrap;}
+      .note{font-size:28px;color:#8296AB;margin-top:48px;line-height:1.55;}
+      .big2{font-size:150px;font-weight:800;letter-spacing:-.02em;line-height:1;}
+      .stat3{display:flex;gap:120px;margin-top:66px;}
+      .stat3 .it{opacity:0;}
+      .stat3 .n{font-size:104px;font-weight:800;line-height:1;letter-spacing:-.02em;}
+      .stat3 .c{font-size:30px;color:#93A7BB;margin-top:20px;}
+      .warn{margin-top:60px;border-left:7px solid #D98A3A;padding:26px 0 26px 36px;
+        background:linear-gradient(90deg,rgba(217,138,58,.14),rgba(217,138,58,0));border-radius:0 16px 16px 0;}
+      .warn p{margin:0;font-size:33px;color:#E8C9A0;line-height:1.5;}
+      .files{margin-top:58px;}
+      .files div{font-size:35px;color:#BACBDB;margin-bottom:24px;opacity:0;}
+      .files b{color:#5EC8C8;font-weight:700;}
+      .brand{position:absolute;left:132px;bottom:76px;font-size:26px;color:#64788C;letter-spacing:.16em;}
+      .ft{position:absolute;right:132px;bottom:76px;font-size:26px;color:#64788C;}
+      .shot{position:absolute;border-radius:20px;overflow:hidden;
+        border:1px solid rgba(148,180,210,.30);box-shadow:0 40px 90px rgba(0,0,0,.55);background:#0F1725;}
+      .shot img{display:block;width:100%;height:auto;}
+      .shotcap{position:absolute;font-size:25px;color:#8EA3B8;letter-spacing:.04em;}
+      .credit{display:flex;align-items:center;gap:22px;margin-top:54px;}
+      .credit .dot{width:16px;height:16px;border-radius:50%;background:#5EC8C8;flex:none;}
+      .credit p{margin:0;font-size:44px;font-weight:700;color:#DCE8F4;}
+    </style>
+  </head>
+  <body>
+    <main id="root" data-composition-id="main" data-start="0" data-duration="30"
+          data-width="1920" data-height="1080">
+
+      <section id="s1" class="clip" data-start="0" data-duration="5.4" data-track-index="1">
+        <div class="pad" style="width:900px;">
+          <p id="s1k" class="kicker">DECISION BENCHMARK</p>
+          <h1 id="s1t" class="h1">决策模型<br/>四方真实 API 评测</h1>
+          <p id="s1s" class="sub">阿里云百炼 · 微软 Decision-1 · Qwen3.5-9B · TypeSafe Jev</p>
+          <div id="s1r" class="rule"></div>
+        </div>
+        <div id="s1shot" class="shot" style="right:132px;top:300px;width:620px;">
+          <img src="./assets/kanshan-ui.png" alt="看山工作台界面" />
+        </div>
+        <div id="s1cap" class="shotcap" style="right:132px;top:1248px;">看山工作台 · 任务发起界面</div>
+        <div class="ft">2026-10-12</div>
+      </section>
+
+      <section id="s2" class="clip" data-start="5.4" data-duration="5.1" data-track-index="1">
+        <div class="pad">
+          <p class="kicker">01 / 评测对象</p>
+          <h2 class="h2">四种决策服务，同一套题</h2>
+          <p class="tag">同样的 state 与 typed questions，标准答案仅存本地</p>
+          <div class="grid4">
+            <div class="card s2c"><p class="nm">阿里云百炼<small>decision-model-preview</small></p>
+              <p class="big" style="color:#2FB8B8">直连</p><p class="unit">国内直连接口</p></div>
+            <div class="card s2c"><p class="nm">微软 Decision-1<small>via OpenRouter</small></p>
+              <p class="big" style="color:#5C8FE0">Azure</p><p class="unit">decisions 接口</p></div>
+            <div class="card s2c"><p class="nm">Qwen3.5-9B<small>via OpenRouter</small></p>
+              <p class="big" style="color:#D29445">千问</p><p class="unit">Chat 基线 · 关闭思考</p></div>
+            <div class="card s2c"><p class="nm">TypeSafe Jev 1.13<small>via OpenRouter</small></p>
+              <p class="big" style="color:#A868C8">Jev</p><p class="unit">decisions 接口</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s3" class="clip" data-start="10.5" data-duration="5.1" data-track-index="1">
+        <div class="pad">
+          <p class="kicker">02 / 准确率 · 越高越好</p>
+          <h2 class="h2">微软与 Jev 并列满分</h2>
+          <p class="tag">12 道中文证据判断题 · 仅取首轮 · 失败计为错误</p>
+          <div class="rows">
+            <div class="row s3r"><div class="lbl">微软 Decision-1</div>
+              <div class="track"><i class="s3b" data-w="100" style="background:linear-gradient(90deg,#3E7FD8,#5C8FE0)"></i></div>
+              <div class="val">12/12 · 100%</div></div>
+            <div class="row s3r"><div class="lbl">TypeSafe Jev 1.13</div>
+              <div class="track"><i class="s3b" data-w="100" style="background:linear-gradient(90deg,#8E4BA8,#A868C8)"></i></div>
+              <div class="val">12/12 · 100%</div></div>
+            <div class="row s3r"><div class="lbl">阿里云百炼</div>
+              <div class="track"><i class="s3b" data-w="91.67" style="background:linear-gradient(90deg,#15858A,#2FB8B8)"></i></div>
+              <div class="val">11/12 · 91.7%</div></div>
+            <div class="row s3r"><div class="lbl">Qwen3.5-9B</div>
+              <div class="track"><i class="s3b" data-w="91.67" style="background:linear-gradient(90deg,#B77826,#D29445)"></i></div>
+              <div class="val">11/12 · 91.7%</div></div>
+          </div>
+          <p class="note">144 次正式请求零失败；四家重复分类一致率均为 100%</p>
+        </div>
+      </section>
+
+      <section id="s4" class="clip" data-start="15.6" data-duration="5.1" data-track-index="1">
+        <div class="pad">
+          <p class="kicker">03 / 响应速度 P50 · 越短越快</p>
+          <h2 class="h2">百炼最快，Jev 领先微软</h2>
+          <p class="tag">36 次正式请求的中位耗时 · 排除暖机 · 条越短越好</p>
+          <div class="rows">
+            <div class="row s4r"><div class="lbl">阿里云百炼</div>
+              <div class="track"><i class="s4b" data-w="7.5" style="background:linear-gradient(90deg,#15858A,#2FB8B8)"></i></div>
+              <div class="val">93 ms</div></div>
+            <div class="row s4r"><div class="lbl">TypeSafe Jev 1.13</div>
+              <div class="track"><i class="s4b" data-w="42.5" style="background:linear-gradient(90deg,#8E4BA8,#A868C8)"></i></div>
+              <div class="val">840 ms</div></div>
+            <div class="row s4r"><div class="lbl">微软 Decision-1</div>
+              <div class="track"><i class="s4b" data-w="67.3" style="background:linear-gradient(90deg,#3E7FD8,#5C8FE0)"></i></div>
+              <div class="val">1329 ms</div></div>
+            <div class="row s4r"><div class="lbl">Qwen3.5-9B</div>
+              <div class="track"><i class="s4b" data-w="100" style="background:linear-gradient(90deg,#B77826,#D29445)"></i></div>
+              <div class="val">1975 ms</div></div>
+          </div>
+          <p class="note">端到端真实体验，含网关与网络；百炼走国内直连，其余三家经 OpenRouter，路径不对等</p>
+        </div>
+      </section>
+
+      <section id="s5" class="clip" data-start="20.7" data-duration="4.8" data-track-index="1">
+        <div class="pad">
+          <p class="kicker">04 / 结论边界</p>
+          <h2 class="h2">小样本，不能当排名</h2>
+          <div class="stat3">
+            <div class="it s5i"><div class="n" style="color:#5EC8C8">12</div><div class="c">独立题目</div></div>
+            <div class="it s5i"><div class="n" style="color:#6E9FE8">6</div><div class="c">组两两配对区间</div></div>
+            <div class="it s5i"><div class="n" style="color:#D29445">0</div><div class="c">组可判定差异</div></div>
+          </div>
+          <div class="warn"><p>全部配对区间均包含零：差异仅相当于多错一题，<br/>统计上无法确认谁更准确。</p></div>
+        </div>
+      </section>
+
+      <section id="s6" class="clip" data-start="25.5" data-duration="4.5" data-track-index="1">
+        <div class="pad" style="width:940px;">
+          <p class="kicker">05 / 交付物</p>
+          <h2 class="h2">可复现的完整工程</h2>
+          <div class="files">
+            <div class="s6f"><b>decision-benchmark/</b> — 四方评测框架 · 34 项离线测试通过</div>
+            <div class="s6f"><b>report.html</b> — 混淆矩阵 · 可靠性分箱 · 覆盖率</div>
+            <div class="s6f"><b>四方评测报告 PDF</b> — 14 页 · 21 项数字校验通过</div>
+          </div>
+          <div id="s6r" class="rule"></div>
+          <div id="s6credit" class="credit"><span class="dot"></span><p>此项目基于看山工作台测试</p></div>
+        </div>
+        <div id="s6shot" class="shot" style="right:132px;top:356px;width:560px;">
+          <img src="./assets/kanshan-ui.png" alt="看山工作台界面" />
+        </div>
+        <div class="brand">DECISION BENCHMARK</div>
+      </section>
+      <audio id="bgm" src="./audio/bgm.m4a" data-start="0" data-end="30"
+             data-has-audio="true" data-volume="0.5" data-name="background-music"></audio>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // S1 0 - 5.4
+      tl.set("#s1",{opacity:1},0).set("#s2",{opacity:0},0).set("#s3",{opacity:0},0)
+        .set("#s4",{opacity:0},0).set("#s5",{opacity:0},0).set("#s6",{opacity:0},0)
+        .from("#s1k",{y:26,opacity:0,duration:.6,ease:"power2.out"},0.15)
+        .from("#s1t",{y:62,opacity:0,duration:.95,ease:"power3.out"},0.4)
+        .from("#s1s",{y:30,opacity:0,duration:.8,ease:"power2.out"},1.05)
+        .fromTo("#s1r",{width:0},{width:148,duration:.7,ease:"power2.out"},1.5)
+        .from("#s1shot",{y:64,opacity:0,scale:.95,duration:1.0,ease:"power3.out"},0.75)
+        .from("#s1cap",{opacity:0,duration:.6},1.75)
+        .to("#s1",{opacity:0,duration:.45,ease:"power1.in"},4.95);
+
+      // S2 5.4 - 10.5
+      tl.set("#s1",{opacity:0},5.4)
+        .set("#s2",{opacity:1},5.4)
+        .from("#s2 .kicker",{y:20,opacity:0,duration:.5},5.5)
+        .from("#s2 .h2",{y:40,opacity:0,duration:.7,ease:"power3.out"},5.7)
+        .from("#s2 .tag",{opacity:0,duration:.5},6.1)
+        .from(".s2c",{y:48,opacity:0,duration:.72,stagger:.13,ease:"power2.out"},6.3)
+        .to("#s2",{opacity:0,duration:.42,ease:"power1.in"},10.08);
+
+      // S3 10.5 - 15.6
+      tl.set("#s2",{opacity:0},10.5)
+        .set("#s3",{opacity:1},10.5)
+        .from("#s3 .kicker",{y:20,opacity:0,duration:.5},10.6)
+        .from("#s3 .h2",{y:40,opacity:0,duration:.7,ease:"power3.out"},10.8)
+        .from("#s3 .tag",{opacity:0,duration:.5},11.2)
+        .to(".s3r",{opacity:1,duration:.5,stagger:.16},11.35);
+      gsap.utils.toArray(".s3b").forEach((el,i)=>{
+        tl.to(el,{width:el.dataset.w+"%",duration:.95,ease:"power2.out"},11.5+i*0.16);
+      });
+      tl.from("#s3 .note",{opacity:0,y:18,duration:.6},13.6)
+        .to("#s3",{opacity:0,duration:.42,ease:"power1.in"},15.18);
+
+      // S4 15.6 - 20.7
+      tl.set("#s3",{opacity:0},15.6)
+        .set("#s4",{opacity:1},15.6)
+        .from("#s4 .kicker",{y:20,opacity:0,duration:.5},15.7)
+        .from("#s4 .h2",{y:40,opacity:0,duration:.7,ease:"power3.out"},15.9)
+        .from("#s4 .tag",{opacity:0,duration:.5},16.3)
+        .to(".s4r",{opacity:1,duration:.5,stagger:.16},16.35);
+      gsap.utils.toArray(".s4b").forEach((el,i)=>{
+        tl.to(el,{width:el.dataset.w+"%",duration:.95,ease:"power2.out"},16.5+i*0.16);
+      });
+      tl.from("#s4 .note",{opacity:0,y:18,duration:.6},18.7)
+        .to("#s4",{opacity:0,duration:.42,ease:"power1.in"},20.28);
+
+      // S5 20.7 - 25.5
+      tl.set("#s4",{opacity:0},20.7)
+        .set("#s5",{opacity:1},20.7)
+        .from("#s5 .kicker",{y:20,opacity:0,duration:.5},20.8)
+        .from("#s5 .h2",{y:40,opacity:0,duration:.7,ease:"power3.out"},21.0)
+        .to(".s5i",{opacity:1,y:0,duration:.6,stagger:.22,ease:"power2.out"},21.5)
+        .from("#s5 .warn",{opacity:0,x:-40,duration:.75,ease:"power2.out"},22.6)
+        .to("#s5",{opacity:0,duration:.42,ease:"power1.in"},25.08);
+
+      // S6 25.5 - 30
+      tl.set("#s5",{opacity:0},25.5)
+        .set("#s6",{opacity:1},25.5)
+        .from("#s6 .kicker",{y:20,opacity:0,duration:.5},25.6)
+        .from("#s6 .h2",{y:40,opacity:0,duration:.7,ease:"power3.out"},25.8)
+        .to(".s6f",{opacity:1,x:0,duration:.55,stagger:.22,ease:"power2.out"},26.3)
+        .fromTo("#s6r",{width:0},{width:148,duration:.6,ease:"power2.out"},27.5)
+        .from("#s6shot",{y:54,opacity:0,scale:.96,duration:.95,ease:"power3.out"},26.0)
+        .from("#s6credit",{y:28,opacity:0,duration:.8,ease:"power2.out"},27.9)
+        .fromTo("#s6credit .dot",{scale:0},{scale:1,duration:.5,ease:"back.out(2)"},28.3);
+
+      window.__timelines["main"] = tl;
+
+      const waitForImages = () =>
+        Promise.all(
+          Array.from(document.images, img => {
+            if (img.complete && img.naturalWidth > 0) {
+              return img.decode?.().catch(() => undefined) ?? Promise.resolve();
+            }
+            return new Promise((resolve, reject) => {
+              img.addEventListener("load", () => resolve(), { once: true });
+              img.addEventListener("error", () => reject(new Error("Image failed: " + img.src)), { once: true });
+            });
+          }),
+        );
+      const waitForFonts = () => (document.fonts?.ready ?? Promise.resolve());
+      window.hyperframesReady = Promise.all([waitForImages(), waitForFonts()]);
+      window.seekHyperframes = async time => { tl.pause(time); };
+    </script>
+  </body>
+</html>
