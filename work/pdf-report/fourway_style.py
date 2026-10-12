@@ -58,7 +58,7 @@ def table(data,widths=None,winners=()):
         cells.append([Paragraph(escape(str(v)).replace('\n','<br/>'),styles['CellBold' if i==0 or (j,i) in winners else 'Cell']) for j,v in enumerate(row)])
     t=Table(cells,colWidths=widths or [PAGE_W/len(data[0])]*len(data[0]),hAlign='LEFT',repeatRows=1)
     t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#E7EEF5')),('VALIGN',(0,0),(-1,-1),'TOP'),
-      ('LEFTPADDING',(0,0),(-1,-1),8),('RIGHTPADDING',(0,0),(-1,-1),8),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7),
+      ('LEFTPADDING',(0,0),(-1,-1),8),('RIGHTPADDING',(0,0),(-1,-1),8),('TOPPADDING',(0,0),(-1,-1),8),('BOTTOMPADDING',(0,0),(-1,-1),8),
       ('LINEBELOW',(0,0),(-1,0),.7,colors.HexColor('#B9CAD8')),('LINEBELOW',(0,1),(-1,-1),.35,colors.HexColor('#DDE5EC')),
       ('ROWBACKGROUNDS',(0,1),(-1,-1),[colors.white,colors.HexColor('#F8FAFC')])]))
     for col_idx,row_idx in winners:

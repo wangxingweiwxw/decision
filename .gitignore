@@ -39,6 +39,7 @@ work/pdf-report/fourway/
 # Intermediate render/preview images from report builds (regenerable)
 work/pdf-report/*.png
 work/pdf-report/threeway/
+work/pdf-report/pubmedqa/
 work/pdf-report/extracted.txt
 .vscode/
 .idea/
