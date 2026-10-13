@@ -2,6 +2,10 @@
 
 决策模型（System One / Decision Model）四方真实 API 对比评测工程。
 
+**🌐 在线体验站点：https://wangxingweiwxw.github.io/decision/**
+可交互查看 500 题逐题真实判断、拖动阈值模拟自动化率与人工复核量、
+按「四家分歧 / 四家全错」筛选错误案例。站点数据由 GitHub Actions 自动构建与校验。
+
 > **口径声明**：本仓库包含两次评测。**PubMedQA 大样本运行（500 题 × 3 轮 = 6000 次请求）
 > 的 4/6 组配对区间不含零，结论可用于选型**；此前的 12 题演示集运行区间全部含零，仅用于
 > 验证流程。两次的延迟均为端到端真实服务体验（含网关与网络），**不代表纯模型推理速度**，
@@ -124,6 +128,9 @@ python -m unittest discover -s tests -v   # 34 项离线测试，不消耗 API �
 | `reports/` | 评测报告（Markdown / PDF / DOCX） |
 | `video/` | 30 秒项目介绍视频工程（HyperFrames） |
 | `work/pdf-report/` | PDF 报告构建脚本 |
+| `site/` | GitHub Pages 站点（静态，数据来自真实运行） |
+| `scripts/` | 站点数据构建与发布前校验脚本 |
+| `.github/workflows/pages.yml` | Pages 自动部署工作流 |
 
 ## 安全
 

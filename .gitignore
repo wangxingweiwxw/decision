@@ -56,3 +56,6 @@ decision_models_fourway_2026-10-12*.pdf
 reports/.*.artifact.json
 # Loose screenshot copy at repo root (the video uses video/intro/assets/)
 看山工作台.png
+
+# QA screenshot from site verification (local only)
+site-overview.png

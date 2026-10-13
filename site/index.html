@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Decision Benchmark · 决策模型四方真实评测</title>
+<meta name="description" content="阿里云百炼 / 微软 Decision-1 / Qwen3.5-9B / TypeSafe Jev 四方决策模型真实 API 评测：PubMedQA 500 题 × 3 轮，6000 次请求，可交互查看逐题结果。" />
+<link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">DECISION BENCHMARK · 真实 API 评测</p>
+    <h1>决策模型四方对比<span class="dim">阿里云百炼 · 微软 Decision-1 · Qwen3.5-9B · TypeSafe Jev</span></h1>
+    <p class="lead">
+      PubMedQA 专家标注集 <b id="h-samples">—</b> 题 × <b id="h-rounds">—</b> 轮，
+      共 <b id="h-req">—</b> 次正式请求。<b id="h-sig">—</b>/6 组两两配对区间不含零，
+      结论可用于选型。
+    </p>
+    <div class="hero-stats" id="hero-stats"></div>
+    <div class="hero-links">
+      <a class="btn" href="https://github.com/wangxingweiwxw/decision" target="_blank" rel="noopener">GitHub 仓库</a>
+      <a class="btn ghost" href="#explorer">逐题体验 ↓</a>
+    </div>
+    <p class="caveat" id="caveat">
+      本页所有数字来自一次真实运行（<span id="h-run">—</span>），非模拟数据。延迟为端到端服务体验，
+      含网关与网络：百炼走国内直连，其余三家经 OpenRouter 跨境路由，<b>不可直接视作模型推理速度</b>。
+    </p>
+  </div>
+</header>
+
+<nav class="tabs wrap" id="tabs">
+  <button data-tab="overview" class="on">总览</button>
+  <button data-tab="significance">统计显著性</button>
+  <button data-tab="errors">错误结构</button>
+  <button data-tab="latency">延迟</button>
+  <button data-tab="threshold">阈值模拟</button>
+  <button data-tab="explorer">逐题体验</button>
+</nav>
+
+<main class="wrap">
+
+  <section id="overview" class="panel on">
+    <h2>主结果</h2>
+    <p class="note hint">浅绿底 + <b>✦</b> 标记为该行最优，并列最优同时标记；<b>区间、实际返回模型、上游三行为描述性信息，不参与最优标注</b>。准确率仅统计首轮 500 个独立输入；失败计为错误。</p>
+    <div class="tablewrap"><table id="t-main"></table></div>
+    <div class="cards" id="verdict"></div>
+  </section>
+
+  <section id="significance" class="panel">
+    <h2>两两配对显著性</h2>
+    <p class="note">
+      按样本 ID 聚类的 <b id="h-boot">—</b> 次配对 bootstrap。区间不含零才可判定差异；
+      6 组比较未做多重校正，属探索性分析。
+    </p>
+    <div id="pairchart" class="chart"></div>
+    <div class="tablewrap"><table id="t-pair"></table></div>
+  </section>
+
+  <section id="errors" class="panel">
+    <h2>错误结构</h2>
+    <div class="callout warn">
+      <b>共性短板：四家在 maybe（证据不足）类上 F1 全部低于 0.24。</b>
+      凡涉及「证据是否充分」的判断都不应交给模型自动裁决，必须人工复核或规则兜底。
+    </div>
+    <h3>分类别 F1</h3>
+    <div id="clschart" class="chart"></div>
+    <div class="tablewrap"><table id="t-class"></table></div>
+    <h3>混淆矩阵</h3>
+    <p class="note">行 = 标准答案，列 = 预测；非对角线为错误，单位为题数。</p>
+    <div class="confgrid" id="confusion"></div>
+  </section>
+
+  <section id="latency" class="panel">
+    <h2>响应速度</h2>
+    <p class="note">仅统计成功的正式请求（每家 1500 次）。P95 为线性插值分位数，不是 SLA。</p>
+    <div id="latchart" class="chart"></div>
+    <div class="tablewrap"><table id="t-lat"></table></div>
+    <div class="callout">
+      百炼的领先包含国内直连与跨境 OpenRouter 的路径差异，不能等同于模型本身更快。
+      三家同经 OpenRouter 时的相对次序为 Jev &lt; 微软 &lt; Qwen。
+    </div>
+  </section>
+
+  <section id="threshold" class="panel">
+    <h2>自动处理阈值模拟</h2>
+    <p class="note">
+      拖动阈值：高于该置信度的判断自动执行，其余转人工。阈值应在独立开发集选定——
+      本项目在 dev 集选定 0.90，再到 test 验证，迁移偏差仅 0.2–4.6 个百分点。
+    </p>
+    <div class="slider-row">
+      <label for="thr">置信度阈值</label>
+      <input type="range" id="thr" min="0.34" max="0.99" step="0.01" value="0.90" />
+      <output id="thr-out">0.90</output>
+    </div>
+    <div class="tablewrap"><table id="t-thr"></table></div>
+    <p class="note" id="thr-note"></p>
+  </section>
+
+  <section id="explorer" class="panel">
+    <h2>逐题体验 · 500 题真实判断</h2>
+    <p class="note">
+      每条为首轮真实返回。P 为所选类别的概率；Qwen 仅返回类别、不自报概率，故显示 N/A。
+      标准答案从未进入任何模型请求。
+    </p>
+    <div class="filters">
+      <input type="search" id="q" placeholder="搜索研究问题关键词…" />
+      <select id="f-gold"><option value="">全部标准答案</option><option>yes</option><option>no</option><option>maybe</option></select>
+      <select id="f-case">
+        <option value="">全部题目</option>
+        <option value="alldiff">四家出现分歧</option>
+        <option value="allwrong">四家全错</option>
+        <option value="allright">四家全对</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+    <div id="items"></div>
+    <button id="more" class="btn ghost">加载更多</button>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p>
+    运行目录 <code id="f-run">—</code> · dataset.jsonl SHA-256 <code id="f-sha">—</code> ·
+    种子 <span id="f-seed">—</span> · 耗时 <span id="f-wall">—</span> 分钟
+  </p>
+  <p class="note">
+    PubMedQA 为公开数据集，题目可能已进入模型训练数据，绝对准确率可能偏高；跨模型相对比较受影响较小。
+    仅测 choice 三分类，未覆盖 Score/Noul、长文档、高并发与跨时段稳定性。
+    各厂商公布的自测指标缺独立第三方验证，本页只以本次实测为准，不作为厂商能力的最终排名。
+  </p>
+  <p class="note">数据源：<a href="./data/benchmark.json">benchmark.json</a> · 报告与源码见 <a href="https://github.com/wangxingweiwxw/decision" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+
+<script src="./assets/app.js"></script>
+</body>
+</html>
