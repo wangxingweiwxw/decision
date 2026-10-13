@@ -30,7 +30,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--dim)}
 .hero-stats .s{flex:1 1 180px;background:rgba(255,255,255,.045);border:1px solid var(--line);
   border-radius:14px;padding:16px 18px}
 .hero-stats .s b{display:block;font-size:26px;font-weight:800;letter-spacing:-.01em}
-.hero-stats .s span{font-size:12.5px;color:var(--faint)}
+.hero-stats .s span{font-size:13px;color:#a7bbcf}
 .hero-links{display:flex;gap:12px;margin:26px 0 0;flex-wrap:wrap}
 .btn{display:inline-block;padding:11px 20px;border-radius:11px;background:var(--teal);color:#05221f;
   font-weight:700;text-decoration:none;font-size:14.5px;border:1px solid transparent;cursor:pointer}
@@ -43,7 +43,7 @@ code{font-family:var(--mono);font-size:.88em;color:var(--dim)}
 /* tabs */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;padding-top:22px;padding-bottom:4px;position:sticky;top:0;
   background:rgba(11,18,32,.92);backdrop-filter:blur(8px);z-index:20;border-bottom:1px solid var(--line)}
-.tabs button{appearance:none;border:1px solid transparent;background:transparent;color:var(--dim);
+.tabs button{appearance:none;border:1px solid transparent;background:transparent;color:#b3c5d6;
   padding:10px 15px;border-radius:10px 10px 0 0;font:600 14.5px/1 inherit;cursor:pointer}
 .tabs button:hover{color:var(--fg)}
 .tabs button.on{color:var(--fg);background:var(--card);border-color:var(--line);border-bottom-color:var(--card)}
